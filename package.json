@@ -1,0 +1,46 @@
+{
+  "name": "jarvis-base",
+  "version": "1.0.0",
+  "description": "Apenas Termux",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "termux",
+    "whatsapp",
+    "bot"
+  ],
+  "author": "Guiguicdd1",
+  "license": "ISC",
+  "dependencies": {
+    "@adiwajshing/baileys": "github:adiwajshing/baileys",
+    "@kagchi/kag-api": "^1.5.5",
+    "async": "^3.2.0",
+    "axios": "^0.21.1",
+    "cfonts": "^2.9.0",
+    "convertapi": "^1.11.0",
+    "escape-string-regexp": "^4.0.0",
+    "fake-useragent": "^1.0.1",
+    "got": "^11.8.2",
+    "imgbb-uploader": "^1.3.0",
+    "moment-timezone": "^0.5.32",
+    "multistream": "^4.0.1",
+    "node-fetch": "^2.6.1",
+    "request": "^2.81.0",
+    "spinnies": "^0.5.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guiguicdd1/serratembot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/guiguicdd1/serratembot.git"
+  },
+  "homepage": "https://github.com/guiguicdd1/serratembot#readme"
+}
