@@ -78,13 +78,13 @@ async function starts() {
 				}
 			}
 			const botNumber = client.user.jid
+			const sender = isGroup ? mek.participant : mek.key.remoteJid
 			const isGroup = from.endsWith('@g.us')
 			const groupMetadata = isGroup ? await client.groupMetadata(from) : ''
 			const groupMembers = isGroup ? groupMetadata.participants : ''
 			const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
 			const isGroupAdmins = groupAdmins.includes(sender) || false
 			const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
-			const sender = isGroup ? mek.participant : mek.key.remoteJid
 			const groupName = isGroup ? groupMetadata.subject : ''
 			const ownerNumber = [criadornumero+"@s.whatsapp.net"]
 			const isOwner = ownerNumber.includes(sender)
