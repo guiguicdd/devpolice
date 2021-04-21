@@ -86,7 +86,7 @@ async function starts() {
 			const isGroupAdmins = groupAdmins.includes(sender) || false
 			const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
 			const groupName = isGroup ? groupMetadata.subject : ''
-			const ownerNumber = [criadornumero+"@s.whatsapp.net"]
+			const ownerNumber = [criadornumero + "@s.whatsapp.net"]
 			const isOwner = ownerNumber.includes(sender)
 			/******End of ApiKey Input******/
 
@@ -110,7 +110,14 @@ async function starts() {
 					cadastrar(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, reply)
 					break
 				default:
-					reply('Não consegui detectar nenhum comando.')
+					texto = budy.slice(0).toLowerCase()
+					if (texto.includes('comando')) {
+						return reply('Comando encontrado mas não é executavel.')
+					}
+					textoerror = 'Não consegui detectar nenhum comando.'
+					console.log(textoerror)
+
+
 			}
 		} catch (e) {
 			console.log('Error : %s', color(e, 'red'))
