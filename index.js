@@ -6,13 +6,18 @@ const {
 /******BEGIN OF FILE INPUT******/
 const { color, bgcolor } = require('./lib/color')
 const { start, success, banner } = require('./lib/functions')
+const { cadastrar} = require('./lib/devpolice.js')
 
 /******BEGIN OF NPM PACKAGE INPUT******/
 const fs = require('fs')
 const moment = require('moment-timezone')
 
+/******BEGIN OF JSON INPUT******/
+const usersjson = JSON.parse(fs.readFileSync('./database/json/usersjson.json'))
+
 prefix = '/'
 blocked = []
+const criadornumero = '5522981274455'
 
 /******BEGIN OF FUNCTIONS INPUT******/
 
@@ -66,13 +71,24 @@ async function starts() {
 					default: '❌'
 				},
 				only: {
-					group: '[❗] Este comando só pode ser usado em grupos! ❌',
+					grupo: '[❗] Este comando só pode ser usado em grupos! ❌',
+					owner: 'Comando não autorizado.',
+					admin: 'Apenas administradores podem usar este comando.',
+					botadmin: 'Preciso de acesso administrativo',
 				}
 			}
+			const botNumber = client.user.jid
 			const isGroup = from.endsWith('@g.us')
+			const groupMetadata = isGroup ? await client.groupMetadata(from) : ''
+			const groupMembers = isGroup ? groupMetadata.participants : ''
+			const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
+			const isGroupAdmins = groupAdmins.includes(sender) || false
+			const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
 			const sender = isGroup ? mek.participant : mek.key.remoteJid
 			const groupMetadata = isGroup ? await client.groupMetadata(from) : ''
 			const groupName = isGroup ? groupMetadata.subject : ''
+			const ownerNumber = [criadornumero+"@s.whatsapp.net"]
+			const isOwner = ownerNumber.includes(sender)
 			/******End of ApiKey Input******/
 
 			const reply = (teks) => {
@@ -90,6 +106,9 @@ async function starts() {
 				case 'help':
 				case 'menu':
 					client.sendMessage(from, 'Nenhum comando disponivel.', text)
+					break
+				case 'cadastrar':
+					cadastrar(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, reply)
 					break
 				default:
 					reply('Não consegui detectar nenhum comando.')
