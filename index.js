@@ -107,7 +107,7 @@ async function starts() {
 					client.sendMessage(from, 'Nenhum comando disponivel.', text)
 					break
 				case 'cadastrar':
-					cadastrar(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, reply)
+					cadastrar(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, reply)
 					break
 				default:
 					reply('Não consegui detectar nenhum comando.')
