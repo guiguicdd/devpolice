@@ -6,7 +6,7 @@ const {
 /******BEGIN OF FILE INPUT******/
 const { color, bgcolor } = require('./lib/color')
 const { start, success, banner } = require('./lib/functions')
-const { cadastrar} = require('./lib/devpolice.js')
+const { cadastrar } = require('./lib/devpolice.js')
 
 /******BEGIN OF NPM PACKAGE INPUT******/
 const fs = require('fs')
@@ -85,7 +85,6 @@ async function starts() {
 			const isGroupAdmins = groupAdmins.includes(sender) || false
 			const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
 			const sender = isGroup ? mek.participant : mek.key.remoteJid
-			const groupMetadata = isGroup ? await client.groupMetadata(from) : ''
 			const groupName = isGroup ? groupMetadata.subject : ''
 			const ownerNumber = [criadornumero+"@s.whatsapp.net"]
 			const isOwner = ownerNumber.includes(sender)
