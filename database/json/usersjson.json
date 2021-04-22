@@ -1,1 +1,10 @@
-[]
+[{
+    "numero": "18285648117@s.whatsapp.net",
+    "othersugi": {
+        "jid": "18285648117@s.whatsapp.net",
+        "id": "18285648117@c.us",
+        "isAdmin": true,
+        "isSuperAdmin": false
+    },
+    "pontos": 1000
+}]
