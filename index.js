@@ -6,7 +6,7 @@ const {
 /******BEGIN OF FILE INPUT******/
 const { color, bgcolor } = require('./lib/color')
 const { start, success, getGroupAdmins, banner } = require('./lib/functions')
-const { cadastrar } = require('./lib/devpolice.js')
+const { cadastrar, removercadastro } = require('./lib/devpolice.js')
 
 /******BEGIN OF NPM PACKAGE INPUT******/
 const fs = require('fs')
@@ -108,6 +108,9 @@ async function starts() {
 					break
 				case 'cadastrar':
 					cadastrar(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, reply)
+					break
+				case 'rmc':
+					removercadastro(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, reply)
 					break
 				default:
 					texto = budy.slice(0).toLowerCase()
