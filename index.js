@@ -39,6 +39,51 @@ async function starts() {
 	await client.connect({ timeoutMs: 30 * 1000 })
 	fs.writeFileSync('./conectionW.json', JSON.stringify(client.base64EncodedAuthInfo(), null, '\t'))
 
+	client.on('group-participants-update', async (dinf) => {
+		try {
+			const mdata = await client.groupMetadata(dinf.jid)
+			console.log(dinf)
+			if (dinf.action == 'add') {
+				pessoa = dinf.participants[0]
+				try {
+					ppimg = await client.getProfilePicture(`${dinf.participants[0].split('@')[0]}@c.us`)
+				} catch {
+					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+				}
+				
+				console.log('--------ADD--------')
+				console.log('-------------------')
+				console.log(pessoa)
+				console.log('-------------------')
+				console.log(pessoa.split('@')[0])
+				console.log('-------------------')
+				console.log(ppimg)
+				console.log('-------------------')
+
+
+			} else if (dinf.action == 'remove') {
+				pessoa = dinf.participants[0]
+				try {
+					ppimg = await client.getProfilePicture(`${pessoa.split('@')[0]}@c.us`)
+				} catch {
+					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+				}
+
+				console.log('------REMOVE-------')
+				console.log('-------------------')
+				console.log(pessoa)
+				console.log('-------------------')
+				console.log(pessoa.split('@')[0])
+				console.log('-------------------')
+				console.log(ppimg)
+				console.log('-------------------')
+
+			}
+		} catch (e) {
+			console.log('Error : %s', color(e, 'red'))
+		}
+	})
+
 	client.on('CB:Blocklist', json => {
 		if (blocked.length > 2) return
 		for (let i of json[1].blocklist) {
