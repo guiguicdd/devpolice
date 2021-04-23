@@ -44,6 +44,7 @@ async function starts() {
 			const mdata = await client.groupMetadata(dinf.jid)
 			console.log(dinf)
 			if (dinf.action == 'add') {
+				
 				pessoa = dinf.participants[0]
 				try {
 					ppimg = await client.getProfilePicture(`${dinf.participants[0].split('@')[0]}@c.us`)
