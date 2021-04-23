@@ -45,23 +45,29 @@ async function starts() {
 			console.log(dinf)
 			if (dinf.action == 'add') {
 				pessoa = dinf.participants[0]
-				
+
 				console.log('--------ADD--------')
 				console.log(pessoa)
 
-				
+
 				if (usersjson.length > 500) {
 					const infotext = `Necessario rodar o comando de remoção de exeço no grupo`
-					client.sendMessage(criadornumero+'@s.whatsapp.net', infotext, text)
+					client.sendMessage(criadornumero + '@s.whatsapp.net', infotext, text)
 				}
 
 
 			} else if (dinf.action == 'remove') {
 				pessoa = dinf.participants[0]
 
-				var pessoanoarray = usersjson.indexOf(pessoa);
+				const obj = JSON.parse(usersjson);
+				console.log('-----+REMOVE+------')
+				console.log(obj.count);
+				console.log('-------------------')
 
-				console.log(pessoanoarray)
+				console.log(obj.numero);
+				console.log('-------------------')
+
+				console.log(obj.numero == pessoa)
 
 				// removed = usersjson.splice(pessoanoarray, 1, "trumpet");
 
