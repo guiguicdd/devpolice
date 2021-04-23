@@ -44,40 +44,35 @@ async function starts() {
 			const mdata = await client.groupMetadata(dinf.jid)
 			console.log(dinf)
 			if (dinf.action == 'add') {
-
 				pessoa = dinf.participants[0]
-				try {
-					ppimg = await client.getProfilePicture(`${dinf.participants[0].split('@')[0]}@c.us`)
-				} catch {
-					ppimg = 'https://github.com/guiguicdd1/botsystem-site/blob/gh-pages/defaultpicture.png?raw=true'
-				}
-
+				
 				console.log('--------ADD--------')
-				console.log('-------------------')
 				console.log(pessoa)
-				console.log('-------------------')
-				console.log(pessoa.split('@')[0])
-				console.log('-------------------')
-				console.log(ppimg)
-				console.log('-------------------')
+
+				
+				if (usersjson.length > 500) {
+					const infotext = `Necessario rodar o comando de remoção de exeço no grupo`
+					client.sendMessage(criadornumero+'@s.whatsapp.net', infotext, text)
+				}
 
 
 			} else if (dinf.action == 'remove') {
 				pessoa = dinf.participants[0]
-				try {
-					ppimg = await client.getProfilePicture(`${pessoa.split('@')[0]}@c.us`)
-				} catch {
-					ppimg = 'https://github.com/guiguicdd1/botsystem-site/blob/gh-pages/defaultpicture.png?raw=true'
-				}
+
+				var pessoanoarray = usersjson.indexOf(pessoa);
+
+				console.log(pessoanoarray)
+
+				// removed = usersjson.splice(pessoanoarray, 1, "trumpet");
 
 				console.log('------REMOVE-------')
-				console.log('-------------------')
-				console.log(pessoa)
-				console.log('-------------------')
-				console.log(pessoa.split('@')[0])
-				console.log('-------------------')
-				console.log(ppimg)
-				console.log('-------------------')
+				// console.log('-------------------')
+				// console.log(pessoa)
+				// console.log('-------------------')
+				// console.log(pessoa.split('@')[0])
+				// console.log('-------------------')
+				// console.log(ppimg)
+				// console.log('-------------------')
 
 			}
 		} catch (e) {
