@@ -6,7 +6,7 @@ const {
 /******BEGIN OF FILE INPUT******/
 const { color, bgcolor } = require('./lib/color')
 const { start, success, getGroupAdmins, banner } = require('./lib/functions')
-const { cadastrar, removercadastro } = require('./lib/devpolice.js')
+const { cadastrar, removercadastro, startuserverification } = require('./lib/devpolice.js')
 
 /******BEGIN OF NPM PACKAGE INPUT******/
 const fs = require('fs')
@@ -47,39 +47,53 @@ async function starts() {
 				pessoa = dinf.participants[0]
 
 				console.log('--------ADD--------')
-				console.log(pessoa)
-
-
+				let i = 0
+				while (i != usersjson.length) {
+					if (usersjson[i].numero == pessoa) {
+						person = {
+							numero: usersjson[i].numero,
+							pontos: usersjson[i].pontos,
+							foto: usersjson[i].foto,
+							saiudogrupo: {
+								status: false,
+								quando: '0000.00.01'
+							},
+							othersugi: usersjson[i].othersugi,
+							motivos: []
+						};
+						usersjson.splice(i, 1, person);
+						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
+					}
+					i++
+				}
 				if (usersjson.length > 500) {
 					const infotext = `Necessario rodar o comando de remoção de exeço no grupo`
 					client.sendMessage(criadornumero + '@s.whatsapp.net', infotext, text)
 				}
 
-
 			} else if (dinf.action == 'remove') {
 				pessoa = dinf.participants[0]
-
-				const obj = JSON.parse(usersjson);
 				console.log('-----+REMOVE+------')
-				console.log(obj.count);
-				console.log('-------------------')
-
-				console.log(obj.numero);
-				console.log('-------------------')
-
-				console.log(obj.numero == pessoa)
-
-				// removed = usersjson.splice(pessoanoarray, 1, "trumpet");
-
-				console.log('------REMOVE-------')
-				// console.log('-------------------')
-				// console.log(pessoa)
-				// console.log('-------------------')
-				// console.log(pessoa.split('@')[0])
-				// console.log('-------------------')
-				// console.log(ppimg)
-				// console.log('-------------------')
-
+				let i = 0
+				while (i != usersjson.length) {
+					if (usersjson[i].numero == pessoa) {
+						const date = moment.tz('America/Sao_Paulo').format('YYYYMMDD')
+						person = {
+							numero: usersjson[i].numero,
+							pontos: usersjson[i].pontos,
+							foto: usersjson[i].foto,
+							saiudogrupo: {
+								status: true,
+								quando: date
+							},
+							othersugi: usersjson[i].othersugi,
+							motivos: []
+						};
+						usersjson.splice(i, 1, person);
+						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
+					}
+					i++
+				}
 			}
 		} catch (e) {
 			console.log('Error : %s', color(e, 'red'))
@@ -102,6 +116,7 @@ async function starts() {
 			if (mek.key.fromMe) return
 			global.prefix
 			global.blocked
+			const content = JSON.stringify(mek.message)
 			const from = mek.key.remoteJid
 			const type = Object.keys(mek.message)[0]
 			const { text } = MessageType
@@ -142,6 +157,13 @@ async function starts() {
 			}
 
 			colors = ['red', 'white', 'black', 'blue', 'yellow', 'green']
+			const isImage = content.includes('imageMessage')
+			const isVideo = content.includes('videoMessage')
+			const isSticker = content.includes('stickerMessage')
+			const isVcard = content.includes('contactMessage')
+			const isLiveLocation = content.includes('liveLocationMessage')
+			const isLocation = content.includes('locationMessage')
+			const isDocument = content.includes('documentMessage')
 			if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
@@ -156,8 +178,16 @@ async function starts() {
 					removercadastro(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, reply)
 					break
 				default:
-					console.log('0')
+					if (!isGroup) return console.log('nocomands')
+					if (isImage) return reply('Image')
+					if (isVideo) return reply('Video')
+					if (isSticker) return reply('Sticker')
+					if (isVcard) return reply('Vcard')
+					if (isLiveLocation) return reply('LiveLocation')
+					if (isLocation) return reply('Location')
+					if (isDocument) return reply('Document')
 
+					startuserverification(client, budy, from, mek, sender, reply)
 
 			}
 		} catch (e) {
