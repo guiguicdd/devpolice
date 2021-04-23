@@ -121,8 +121,16 @@ async function starts() {
 			const type = Object.keys(mek.message)[0]
 			const { text } = MessageType
 			const time = moment.tz('America/Sao_Paulo').format('HH:mm:ss')
-			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
-			budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
+			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? 
+			mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ?
+			mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? 
+			mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? 
+			mek.message.extendedTextMessage.text : ''
+
+			budy = (type === 'conversation') ? 
+			mek.message.conversation : (type === 'extendedTextMessage') ? 
+			mek.message.extendedTextMessage.text : ''
+			
 			const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
 			const args = body.trim().split(/ +/).slice(1)
 			const isCmd = body.startsWith(prefix)
@@ -151,6 +159,10 @@ async function starts() {
 			const ownerNumber = [criadornumero + "@s.whatsapp.net"]
 			const isOwner = ownerNumber.includes(sender)
 			/******End of ApiKey Input******/
+
+			const isUrl = (url) => {
+				return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi'))
+			}
 
 			const reply = (teks) => {
 				client.sendMessage(from, teks, text, { quoted: mek })
@@ -187,7 +199,7 @@ async function starts() {
 					if (isLocation) return reply('Location')
 					if (isDocument) return reply('Document')
 
-					startuserverification(client, budy, from, mek, sender, reply)
+					startuserverification(client, budy, from, mek, sender, isUrl, reply)
 
 			}
 		} catch (e) {
