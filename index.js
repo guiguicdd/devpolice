@@ -14,6 +14,7 @@ const moment = require('moment-timezone')
 
 /******BEGIN OF JSON INPUT******/
 const usersjson = JSON.parse(fs.readFileSync('./database/json/usersjson.json'))
+const palavroes = JSON.parse(fs.readFileSync('./database/json/palavroes.json'))
 
 prefix = '/'
 blocked = []
@@ -121,16 +122,16 @@ async function starts() {
 			const type = Object.keys(mek.message)[0]
 			const { text } = MessageType
 			const time = moment.tz('America/Sao_Paulo').format('HH:mm:ss')
-			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? 
-			mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ?
-			mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? 
-			mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? 
-			mek.message.extendedTextMessage.text : ''
+			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ?
+				mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ?
+					mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ?
+						mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ?
+							mek.message.extendedTextMessage.text : ''
 
-			budy = (type === 'conversation') ? 
-			mek.message.conversation : (type === 'extendedTextMessage') ? 
-			mek.message.extendedTextMessage.text : ''
-			
+			budy = (type === 'conversation') ?
+				mek.message.conversation : (type === 'extendedTextMessage') ?
+					mek.message.extendedTextMessage.text : ''
+
 			const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
 			const args = body.trim().split(/ +/).slice(1)
 			const isCmd = body.startsWith(prefix)
@@ -199,7 +200,7 @@ async function starts() {
 					if (isLocation) return reply('Location')
 					if (isDocument) return reply('Document')
 
-					startuserverification(client, budy, from, mek, sender, isUrl, reply)
+					startuserverification(client, budy, from, mek, sender, palavroes, reply)
 
 			}
 		} catch (e) {

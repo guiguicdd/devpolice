@@ -9,7 +9,6 @@ npm i imgbb-uploader
 npm cache clean -f
 npm install --also=dev
 npm i got
-npm install utf8
 
 echo "[*] All dependencies have been installed, please run the command \"npm start\" to immediately start the script"
 echo "Updates : fix Bugs"
