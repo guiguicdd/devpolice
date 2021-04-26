@@ -200,7 +200,7 @@ async function starts() {
 					if (isLocation) return reply('Location')
 					if (isDocument) return reply('Document')
 
-					startuserverification(client, budy, from, mek, sender, palavroes, usersjson, reply)
+					startuserverification(client, budy, from, mek, sender, palavroes, usersjson, text, reply)
 
 			}
 		} catch (e) {
