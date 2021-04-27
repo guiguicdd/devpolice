@@ -13,10 +13,6 @@ const fs = require('fs')
 const moment = require('moment-timezone')
 
 /******BEGIN OF JSON INPUT******/
-const aaaaaa = ['aaaaaa', 'bbbbbbb']
-fs.writeFileSync(__dirname + '/../uploads/usersjson2.json', JSON.stringify(aaaaaa))
-const usersjson2 = JSON.parse(fs.readFileSync(__dirname + '/../uploads/usersjson.json2'))
-console.log(usersjson2);
 const usersjson = JSON.parse(fs.readFileSync('./database/json/usersjson.json'))
 const palavroes = JSON.parse(fs.readFileSync('./database/json/palavroes.json'))
 
