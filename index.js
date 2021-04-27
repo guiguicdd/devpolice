@@ -169,6 +169,10 @@ async function starts() {
 				client.sendMessage(from, teks, text, { quoted: mek })
 			}
 
+			const mentions = (teks, memberr, id) => {
+				(id == null || id == undefined || id == false) ? client.sendMessage(from, teks.trim(), extendedText, { contextInfo: { "mentionedJid": memberr } }) : client.sendMessage(from, teks.trim(), extendedText, { quoted: mek, contextInfo: { "mentionedJid": memberr } })
+			}
+
 			colors = ['red', 'white', 'black', 'blue', 'yellow', 'green']
 			const isImage = content.includes('imageMessage')
 			const isVideo = content.includes('videoMessage')
@@ -203,7 +207,7 @@ async function starts() {
 					if (isLocation) return reply('Location')
 					if (isDocument) return reply('Document')
 
-					startuserverification(client, budy, from, mek, sender, palavroes, usersjson, text, reply)
+					startuserverification(client, budy, from, mek, sender, palavroes, usersjson, text, isGroup, reply)
 
 			}
 		} catch (e) {
