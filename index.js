@@ -42,15 +42,13 @@ async function starts() {
 
 	client.on('group-participants-update', async (dinf) => {
 		try {
-			console.log(dinf)
 			if (dinf.action == 'add') {
 				pessoa = dinf.participants[0]
-				const from  = dinf.jid
-				const isGroup = from.endsWith('@g.us')
-				const groupMetadata = isGroup ? await client.groupMetadata(from) : ''
-				const groupMembers = isGroup ? groupMetadata.participants : ''
+				from2 = dinf.jid
+				groupMembers2 = await client.groupMetadata(from2).participants
+				console.log(groupMembers)
 
-				await cadastrar(client, from, groupMembers, usersjson)
+				await cadastrar(client, from2, groupMembers2, usersjson)
 
 				console.log('--------ADD--------')
 				let i = 0
