@@ -40,66 +40,7 @@ async function starts() {
 	await client.connect({ timeoutMs: 30 * 1000 })
 	fs.writeFileSync('./conectionW.json', JSON.stringify(client.base64EncodedAuthInfo(), null, '\t'))
 
-	client.on('group-participants-update', async (dinf) => {
-		try {
-			const mdata = await client.groupMetadata(dinf.jid)
-			console.log(dinf)
-			if (dinf.action == 'add') {
-				pessoa = dinf.participants[0]
-
-				console.log('--------ADD--------')
-				let i = 0
-				while (i != usersjson.length) {
-					if (usersjson[i].numero == pessoa) {
-						person = {
-							numero: usersjson[i].numero,
-							pontos: usersjson[i].pontos,
-							foto: usersjson[i].foto,
-							saiudogrupo: {
-								status: false,
-								quando: '0000.00.01'
-							},
-							othersugi: usersjson[i].othersugi,
-							motivos: []
-						};
-						usersjson.splice(i, 1, person);
-						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
-					}
-					i++
-				}
-				if (usersjson.length > 500) {
-					const infotext = `Necessario rodar o comando de remoção de exeço no grupo`
-					client.sendMessage(criadornumero + '@s.whatsapp.net', infotext, text)
-				}
-
-			} else if (dinf.action == 'remove') {
-				pessoa = dinf.participants[0]
-				console.log('-----+REMOVE+------')
-				let i = 0
-				while (i != usersjson.length) {
-					if (usersjson[i].numero == pessoa) {
-						const date = moment.tz('America/Sao_Paulo').format('YYYYMMDD')
-						person = {
-							numero: usersjson[i].numero,
-							pontos: usersjson[i].pontos,
-							foto: usersjson[i].foto,
-							saiudogrupo: {
-								status: true,
-								quando: date
-							},
-							othersugi: usersjson[i].othersugi,
-							motivos: []
-						};
-						usersjson.splice(i, 1, person);
-						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
-					}
-					i++
-				}
-			}
-		} catch (e) {
-			console.log('Error : %s', color(e, 'red'))
-		}
-	})
+	
 
 	client.on('CB:Blocklist', json => {
 		if (blocked.length > 2) return
@@ -186,11 +127,12 @@ async function starts() {
 			if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
 			if (!isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
-
+			
+			setInterval(function(){ alert("Hello"); }, 3000);
 			/******END OF FUNCTIONS INPUT******/
 			switch (command) {
 				case 'cadm':
-					cadastrar(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, reply)
+					cadastrar(client, from, groupMembers, usersjson)
 					break
 				case 'rmc':
 					removercadastro(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, reply)
@@ -210,10 +152,70 @@ async function starts() {
 					if (isLiveLocation) return reply(content + '\n\nLiveLocation')
 					if (isLocation) return reply(content + '\n\nLocation')
 					if (isDocument) return reply(content + '\n\nDocument')
-					cadastrar(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, reply)
 
 					startuserverification(client, budy, from, mek, sender, palavroes, usersjson, text, isGroup, reply)
 
+			}
+		} catch (e) {
+			console.log('Error : %s', color(e, 'red'))
+		}
+	})
+
+	client.on('group-participants-update', async (dinf) => {
+		try {
+			const mdata = await client.groupMetadata(dinf.jid)
+			console.log(dinf)
+			if (dinf.action == 'add') {
+				pessoa = dinf.participants[0]
+
+				console.log('--------ADD--------')
+				let i = 0
+				while (i != usersjson.length) {
+					if (usersjson[i].numero == pessoa) {
+						person = {
+							numero: usersjson[i].numero,
+							pontos: usersjson[i].pontos,
+							foto: usersjson[i].foto,
+							saiudogrupo: {
+								status: false,
+								quando: '0000.00.01'
+							},
+							othersugi: usersjson[i].othersugi,
+							motivos: []
+						};
+						usersjson.splice(i, 1, person);
+						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
+					}
+					i++
+				}
+				if (usersjson.length > 500) {
+					const infotext = `Necessario rodar o comando de remoção de exeço no grupo`
+					client.sendMessage(criadornumero + '@s.whatsapp.net', infotext, text)
+				}
+
+			} else if (dinf.action == 'remove') {
+				pessoa = dinf.participants[0]
+				console.log('-----+REMOVE+------')
+				let i = 0
+				while (i != usersjson.length) {
+					if (usersjson[i].numero == pessoa) {
+						const date = moment.tz('America/Sao_Paulo').format('YYYYMMDD')
+						person = {
+							numero: usersjson[i].numero,
+							pontos: usersjson[i].pontos,
+							foto: usersjson[i].foto,
+							saiudogrupo: {
+								status: true,
+								quando: date
+							},
+							othersugi: usersjson[i].othersugi,
+							motivos: []
+						};
+						usersjson.splice(i, 1, person);
+						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
+					}
+					i++
+				}
 			}
 		} catch (e) {
 			console.log('Error : %s', color(e, 'red'))
