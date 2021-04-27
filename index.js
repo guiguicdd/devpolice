@@ -6,7 +6,7 @@ const {
 /******BEGIN OF FILE INPUT******/
 const { color, bgcolor } = require('./lib/color')
 const { start, success, getGroupAdmins, banner } = require('./lib/functions')
-const { cadastrar, removercadastro, addpoints, startuserverification } = require('./lib/devpolice.js')
+const { cadastrar, removercadastro, addpoints, add, startuserverification } = require('./lib/devpolice.js')
 
 /******BEGIN OF NPM PACKAGE INPUT******/
 const fs = require('fs')
@@ -181,6 +181,7 @@ async function starts() {
 			const isLiveLocation = content.includes('liveLocationMessage')
 			const isLocation = content.includes('locationMessage')
 			const isDocument = content.includes('documentMessage')
+			const isQuotedVcard = type === 'extendedTextMessage' && content.includes('contactMessage')
 			if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
@@ -197,15 +198,18 @@ async function starts() {
 				case 'addpon':
 					addpoints(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, mentions, reply)
 					break
+				case 'addm':
+					add(isGroup, mess, isGroupAdmins, client, from, isBotGroupAdmins, args, isQuotedVcard, mek, reply)
+					break
 				default:
 					if (!isGroup) return console.log('nocomands')
-					if (isImage) return reply('Image')
-					if (isVideo) return reply('Video')
-					if (isSticker) return reply('Sticker')
-					if (isVcard) return reply('Vcard')
-					if (isLiveLocation) return reply('LiveLocation')
-					if (isLocation) return reply('Location')
-					if (isDocument) return reply('Document')
+					if (isImage) return reply(content + '\n\nImage')
+					if (isVideo) return reply(content + '\n\nVideo')
+					if (isSticker) return reply(content + '\n\nSticker')
+					if (isVcard) return reply(content + '\n\nVcard')
+					if (isLiveLocation) return reply(content + '\n\nLiveLocation')
+					if (isLocation) return reply(content + '\n\nLocation')
+					if (isDocument) return reply(content + '\n\nDocument')
 
 					startuserverification(client, budy, from, mek, sender, palavroes, usersjson, text, isGroup, reply)
 
