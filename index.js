@@ -6,7 +6,7 @@ const {
 /******BEGIN OF FILE INPUT******/
 const { color, bgcolor } = require('./lib/color')
 const { start, success, getGroupAdmins, banner } = require('./lib/functions')
-const { cadastrar, removercadastro, startuserverification } = require('./lib/devpolice.js')
+const { cadastrar, removercadastro, addpoints, startuserverification } = require('./lib/devpolice.js')
 
 /******BEGIN OF NPM PACKAGE INPUT******/
 const fs = require('fs')
@@ -189,6 +189,9 @@ async function starts() {
 					break
 				case 'rmc':
 					removercadastro(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, reply)
+					break
+				case 'addpon':
+					addpoints(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, mentions, reply)
 					break
 				default:
 					if (!isGroup) return console.log('nocomands')
