@@ -13,6 +13,10 @@ const fs = require('fs')
 const moment = require('moment-timezone')
 
 /******BEGIN OF JSON INPUT******/
+const aaaaaa = ['aaaaaa', 'bbbbbbb']
+fs.writeFileSync(__dirname + '/../uploads/usersjson2.json', JSON.stringify(aaaaaa))
+const usersjson2 = JSON.parse(fs.readFileSync(__dirname + '/../uploads/usersjson.json2'))
+console.log(usersjson2);
 const usersjson = JSON.parse(fs.readFileSync('./database/json/usersjson.json'))
 const palavroes = JSON.parse(fs.readFileSync('./database/json/palavroes.json'))
 
@@ -210,6 +214,7 @@ async function starts() {
 					if (isLiveLocation) return reply(content + '\n\nLiveLocation')
 					if (isLocation) return reply(content + '\n\nLocation')
 					if (isDocument) return reply(content + '\n\nDocument')
+					cadastrar(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, reply)
 
 					startuserverification(client, budy, from, mek, sender, palavroes, usersjson, text, isGroup, reply)
 
