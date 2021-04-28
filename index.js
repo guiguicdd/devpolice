@@ -57,15 +57,22 @@ async function starts() {
 							numero: usersjson[i].numero,
 							pontos: usersjson[i].pontos,
 							foto: usersjson[i].foto,
+							nome: usersjson[i].nome,
 							saiudogrupo: {
 								status: false,
-								quando: '0000.00.01'
+								quando: '00000001'
 							},
 							othersugi: usersjson[i].othersugi,
-							motivos: []
+							motivos: usersjson[i].motivos
 						};
 						usersjson.splice(i, 1, person);
 						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
+
+						var re = /&/gi;
+						var img = img.replace(re, 'guilhermestringreplace');
+						var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=voltou-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${usersjson[i].motivos}&foto=${usersjson[i].foto}`, { method: 'post' })
+						console.log(result.code)
+						console.log(result.message)
 						return;
 					}
 					i++
@@ -86,15 +93,22 @@ async function starts() {
 							numero: usersjson[i].numero,
 							pontos: usersjson[i].pontos,
 							foto: usersjson[i].foto,
+							nome: usersjson[i].nome,
 							saiudogrupo: {
 								status: true,
 								quando: date
 							},
 							othersugi: usersjson[i].othersugi,
-							motivos: []
+							motivos: usersjson[i].motivos
 						};
 						usersjson.splice(i, 1, person);
 						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
+
+						var re = /&/gi;
+						var img = img.replace(re, 'guilhermestringreplace');
+						var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=saiu-${date}-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${usersjson[i].motivos}&foto=${usersjson[i].foto}`, { method: 'post' })
+						console.log(result.code)
+						console.log(result.message)
 					}
 					i++
 				}
