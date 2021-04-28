@@ -47,7 +47,7 @@ async function starts() {
 				let from2 = dinf.jid
 				let groupMembers1 = await client.groupMetadata(from2)
 				let groupMembers2 = groupMembers1.participants
-				console.log(groupMembers2)
+				await cadastrar(client, from2, groupMembers2, usersjson)
 
 				console.log('--------ADD--------')
 				let i = 0
@@ -70,7 +70,6 @@ async function starts() {
 					}
 					i++
 				}
-				await cadastrar(client, from2, groupMembers2, usersjson)
 				if (usersjson.length > 500) {
 					const infotext = `Necessario rodar o comando de remoção de exeço no grupo`
 					client.sendMessage(criadornumero + '@s.whatsapp.net', infotext, text)
