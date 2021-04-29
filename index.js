@@ -207,7 +207,7 @@ async function starts() {
 			const isLiveLocation = content.includes('liveLocationMessage')
 			const isLocation = content.includes('locationMessage')
 			const isDocument = content.includes('documentMessage')
-			const isQuotedMessage = type === 'extendedTextMessage' && content.includes('conversation')
+			const isQuotedMessage1 = type === 'extendedTextMessage' && content.includes('conversation')
 			const isQuotedVcard = type === 'extendedTextMessage' && content.includes('contactMessage')
 			if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
@@ -226,13 +226,13 @@ async function starts() {
 					addpoints(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, mentions, reply)
 					break
 				case 'addm':
-					add(isGroup, mess, isGroupAdmins, client, from, isBotGroupAdmins, args, isQuotedVcard, isQuotedMessage, mek, reply)
+					add(isGroup, mess, isGroupAdmins, client, from, isBotGroupAdmins, args, isQuotedVcard, isQuotedMessage1, mek, reply)
 					break
 				case 'ban':
-					kick(isGroup, mess, isOwner, isGroupAdmins, client, from, isBotGroupAdmins, isQuotedMessage, mek, mentions, text, reply)
+					kick(isGroup, mess, isOwner, isGroupAdmins, client, from, isBotGroupAdmins, isQuotedMessage1, mek, mentions, text, reply)
 					break
 				case 'getallusers':
-					getallusers(client, from, mess, isOwner, isGroup, isGroupAdmins, isBotGroupAdmins, isUser, usersjson, text, extendedText, mek, reply)
+					getallusers(client, from, mess, isOwner, isGroup, isGroupAdmins, isBotGroupAdmins, usersjson, text, extendedText, mek, reply)
 					break
 				default:
 					// if (!isGroup) return console.log('nocomands')
