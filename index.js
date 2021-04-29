@@ -6,7 +6,7 @@ const {
 /******BEGIN OF FILE INPUT******/
 const { color, bgcolor } = require('./lib/color')
 const { start, success, getGroupAdmins, banner } = require('./lib/functions')
-const { cadastrar, removercadastro, addpoints, add, startuserverification } = require('./lib/devpolice.js')
+const { cadastrar, removercadastro, addpoints, add, kick, getallusers, startuserverification } = require('./lib/devpolice.js')
 
 /******BEGIN OF NPM PACKAGE INPUT******/
 const fs = require('fs')
@@ -146,7 +146,7 @@ async function starts() {
 			const content = JSON.stringify(mek.message)
 			const from = mek.key.remoteJid
 			const type = Object.keys(mek.message)[0]
-			const { text } = MessageType
+			const { text, extendedText } = MessageType
 			const time = moment.tz('America/Sao_Paulo').format('HH:mm:ss')
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ?
 				mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ?
@@ -207,6 +207,7 @@ async function starts() {
 			const isLiveLocation = content.includes('liveLocationMessage')
 			const isLocation = content.includes('locationMessage')
 			const isDocument = content.includes('documentMessage')
+			const isQuotedMessage = type === 'extendedTextMessage' && content.includes('conversation')
 			const isQuotedVcard = type === 'extendedTextMessage' && content.includes('contactMessage')
 			if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
@@ -225,17 +226,24 @@ async function starts() {
 					addpoints(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, mentions, reply)
 					break
 				case 'addm':
-					add(isGroup, mess, isGroupAdmins, client, from, isBotGroupAdmins, args, isQuotedVcard, mek, reply)
+					add(isGroup, mess, isGroupAdmins, client, from, isBotGroupAdmins, args, isQuotedVcard, isQuotedMessage, mek, reply)
+					break
+				case 'ban':
+					kick(isGroup, mess, isOwner, isGroupAdmins, client, from, isBotGroupAdmins, isQuotedMessage, mek, mentions, text, reply)
+					break
+				case 'getallusers':
+					getallusers(client, from, mess, isOwner, isGroup, isGroupAdmins, isBotGroupAdmins, isUser, usersjson, text, extendedText, mek, reply)
 					break
 				default:
-					if (!isGroup) return console.log('nocomands')
-					if (isImage) return reply(content + '\n\nImage')
-					if (isVideo) return reply(content + '\n\nVideo')
-					if (isSticker) return reply(content + '\n\nSticker')
-					if (isVcard) return reply(content + '\n\nVcard')
-					if (isLiveLocation) return reply(content + '\n\nLiveLocation')
-					if (isLocation) return reply(content + '\n\nLocation')
-					if (isDocument) return reply(content + '\n\nDocument')
+					// if (!isGroup) return console.log('nocomands')
+					// if (isImage) return reply(content + '\n\nImage') http://www.nudedetect.com/process.php?url=
+					// if (isVideo) return reply(content + '\n\nVideo') http://www.nudedetect.com/process.php?url=
+					// if (isSticker) return reply(content + '\n\nSticker') http://www.nudedetect.com/process.php?url=
+					// if (isVcard) return reply(content + '\n\nVcard')
+					// if (isLiveLocation) return reply(content + '\n\nLiveLocation')
+					// if (isLocation) return reply(content + '\n\nLocation')
+					// if (isDocument) return reply(content + '\n\nDocument')
+					// reply(content)
 
 					startuserverification(client, budy, from, mek, sender, palavroes, usersjson, palavraspam, text, isGroup, reply)
 
