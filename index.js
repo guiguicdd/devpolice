@@ -6,7 +6,7 @@ const {
 /******BEGIN OF FILE INPUT******/
 const { color, bgcolor } = require('./lib/color')
 const { start, success, getGroupAdmins, banner } = require('./lib/functions')
-const { fetchJson, fetchText } = require('./fetcher')
+const { fetchJson, fetchText } = require('./lib/fetcher')
 const { cadastrar, removercadastro, addpoints, add, kick, getallusers, startuserverification } = require('./lib/devpolice.js')
 
 /******BEGIN OF NPM PACKAGE INPUT******/
