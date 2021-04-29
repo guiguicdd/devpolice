@@ -15,7 +15,7 @@ const moment = require('moment-timezone')
 /******BEGIN OF JSON INPUT******/
 const usersjson = JSON.parse(fs.readFileSync('./database/json/usersjson.json'))
 const palavroes = JSON.parse(fs.readFileSync('./database/json/palavroes.json'))
-const palavraspam = JSON.parse(fs.readFileSync('./database/json/spamcheker.json'))
+const spamcheker = JSON.parse(fs.readFileSync('./database/json/spamcheker.json'))
 
 prefix = '/'
 blocked = []
@@ -245,7 +245,7 @@ async function starts() {
 					// if (isDocument) return reply(content + '\n\nDocument')
 					// reply(content)
 
-					startuserverification(client, budy, from, mek, sender, palavroes, usersjson, palavraspam, text, isGroup, reply)
+					startuserverification(client, budy, from, mek, sender, palavroes, usersjson, spamcheker, text, isGroup, reply)
 
 			}
 		} catch (e) {
