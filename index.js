@@ -226,7 +226,7 @@ async function starts() {
 					addpoints(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, mentions, reply)
 					break
 				case 'addm':
-					add(isGroup, mess, isGroupAdmins, client, from, isBotGroupAdmins, args, isQuotedVcard, isQuotedMessage1, mek, reply)
+					add(isGroup, isOwner, mess, isGroupAdmins, client, from, isBotGroupAdmins, args, isQuotedVcard, isQuotedMessage1, mek, reply)
 					break
 				case 'ban':
 					kick(isGroup, mess, isOwner, isGroupAdmins, client, from, isBotGroupAdmins, isQuotedMessage1, mek, mentions, text, reply)
