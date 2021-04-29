@@ -218,6 +218,7 @@ async function starts() {
 			/******END OF FUNCTIONS INPUT******/
 			switch (command) {
 				case 'cadm':
+					if (!isGroupAdmins) return reply(mess.only.admin)
 					cadastrar(client, from, groupMembers, usersjson)
 					break
 				case 'rmc':
@@ -233,6 +234,7 @@ async function starts() {
 					kick(isGroup, mess, isOwner, isGroupAdmins, client, from, isBotGroupAdmins, isQuotedMessage1, mek, mentions, text, reply)
 					break
 				case 'getallusers':
+					if (isGroup) return console.log('...');
 					getallusers(client, from, mess, isOwner, isGroup, isGroupAdmins, isBotGroupAdmins, usersjson, text, extendedText, mek, reply)
 					break
 				default:
