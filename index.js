@@ -247,9 +247,8 @@ async function starts() {
 					// if (isLocation) return reply(content + '\n\nLocation')
 					// if (isDocument) return reply(content + '\n\nDocument')
 					// reply(content)
-
+					if (!isGroup) return console.log('...');
 					startuserverification(client, budy, from, mek, sender, palavroes, usersjson, spamcheker, text, isGroup, reply)
-
 			}
 		} catch (e) {
 			console.log('Error : %s', color(e, 'red'))
