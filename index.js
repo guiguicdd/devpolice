@@ -193,7 +193,7 @@ async function starts() {
 			}
 
 			const reply = (teks) => {
-				client.sendMessage(from, teks, text, { quoted: mek })
+				await client.sendMessage(from, teks, text, { quoted: mek })
 			}
 
 			const mentions = (teks, memberr, id) => {
