@@ -143,7 +143,7 @@ async function starts() {
 			const content = JSON.stringify(mek.message)
 			const from = mek.key.remoteJid
 			const type = Object.keys(mek.message)[0]
-			const { text, extendedText } = MessageType
+			const { text, extendedText, document } = MessageType
 			const time = moment.tz('America/Sao_Paulo').format('HH:mm:ss')
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ?
 				mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ?
@@ -230,7 +230,7 @@ async function starts() {
 					kick(isGroup, mess, isOwner, isGroupAdmins, client, from, isBotGroupAdmins, isQuotedMessage1, mek, mentions, text, reply)
 					break
 				case 'getallusers':
-					getallusers(client, from, mess, isOwner, isGroup, isGroupAdmins, isBotGroupAdmins, usersjson, text, extendedText, mek, reply)
+					getallusers(client, document, from, mess, isOwner, isGroup, isGroupAdmins, isBotGroupAdmins, usersjson, text, extendedText, mek, reply)
 					break
 				default:
 					// if (!isGroup) return console.log('nocomands')
