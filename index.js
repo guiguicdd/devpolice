@@ -234,7 +234,6 @@ async function starts() {
 					kick(isGroup, mess, isOwner, isGroupAdmins, client, from, isBotGroupAdmins, isQuotedMessage1, mek, mentions, text, reply)
 					break
 				case 'getallusers':
-					if (isGroup) return console.log('...');
 					getallusers(client, from, mess, isOwner, isGroup, isGroupAdmins, isBotGroupAdmins, usersjson, text, extendedText, mek, reply)
 					break
 				default:
@@ -247,6 +246,7 @@ async function starts() {
 					// if (isLocation) return reply(content + '\n\nLocation')
 					// if (isDocument) return reply(content + '\n\nDocument')
 					// reply(content)
+					if (!isGroup) return console.log('...');
 					startuserverification(client, budy, from, mek, sender, palavroes, usersjson, spamcheker, text, isGroup, reply)
 			}
 		} catch (e) {
