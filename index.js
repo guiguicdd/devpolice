@@ -71,7 +71,9 @@ async function starts() {
 						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
 
 						try {
-							var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=voltou-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${usersjson[i].motivos}&foto=${usersjson[i].foto}`, { method: 'post' })
+							var re = /&/gi;
+							var img = usersjson[i].foto.replace(re, 'guilhermestringreplace');
+							var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=voltou-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${usersjson[i].motivos}&foto=${img}`, { method: 'post' })
 							console.log(result.code)
 							console.log(result.message)
 							return;
@@ -109,7 +111,9 @@ async function starts() {
 						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
 
 						try {
-							var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=saiu-${date}-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${usersjson[i].motivos}&foto=${usersjson[i].foto}`, { method: 'post' })
+							var re = /&/gi;
+							var img = usersjson[i].foto.replace(re, 'guilhermestringreplace');
+							var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=saiu-${date}-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${usersjson[i].motivos}&foto=${img}`, { method: 'post' })
 							console.log(result.code)
 							console.log(result.message)
 						} catch (error) {
