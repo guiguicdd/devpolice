@@ -71,8 +71,6 @@ async function starts() {
 						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
 
 						try {
-							var re = /&/gi;
-							var img = img.replace(re, 'guilhermestringreplace');
 							var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=voltou-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${usersjson[i].motivos}&foto=${usersjson[i].foto}`, { method: 'post' })
 							console.log(result.code)
 							console.log(result.message)
@@ -111,8 +109,6 @@ async function starts() {
 						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
 
 						try {
-							var re = /&/gi;
-							var img = img.replace(re, 'guilhermestringreplace');
 							var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=saiu-${date}-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${usersjson[i].motivos}&foto=${usersjson[i].foto}`, { method: 'post' })
 							console.log(result.code)
 							console.log(result.message)
@@ -192,7 +188,7 @@ async function starts() {
 				return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi'))
 			}
 
-			const reply = (teks) => {
+			const reply = async (teks) => {
 				await client.sendMessage(from, teks, text, { quoted: mek })
 			}
 
@@ -208,7 +204,7 @@ async function starts() {
 			const isLiveLocation = content.includes('liveLocationMessage')
 			const isLocation = content.includes('locationMessage')
 			const isDocument = content.includes('documentMessage')
-			const isQuotedMessage1 = type === 'extendedTextMessage' && content.includes('conversation')
+			const isQuotedMessage1 = type === 'extendedTextMessage'
 			const isQuotedVcard = type === 'extendedTextMessage' && content.includes('contactMessage')
 			if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
