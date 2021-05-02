@@ -69,11 +69,14 @@ async function starts() {
 						};
 						usersjson.splice(i, 1, person);
 						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
-
+						let motivos2 = 'Nenhum'
+						if (!usersjson[i].motivos == '') {
+							motivos2 = usersjson[i].motivos
+						}
 						try {
 							var re = /&/gi;
 							var img = usersjson[i].foto.replace(re, 'guilhermestringreplace');
-							var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=voltou-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${encodeURI(usersjson[i].motivos)}&foto=${img}`, { method: 'post' })
+							var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=voltou-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${encodeURI(motivos2)}&foto=${img}`, { method: 'post' })
 							console.log(result.code)
 							console.log(result.message)
 							return;
@@ -109,11 +112,14 @@ async function starts() {
 						};
 						usersjson.splice(i, 1, person);
 						fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
-
+						let motivos2 = 'Nenhum'
+						if (!usersjson[i].motivos == '') {
+							motivos2 = usersjson[i].motivos
+						}
 						try {
 							var re = /&/gi;
 							var img = usersjson[i].foto.replace(re, 'guilhermestringreplace');
-							var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=saiu-${date}-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${encodeURI(usersjson[i].motivos)}&foto=${img}`, { method: 'post' })
+							var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=saiu-${date}-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${encodeURI(motivos2)}&foto=${img}`, { method: 'post' })
 							console.log(result.code)
 							console.log(result.message)
 						} catch (error) {
@@ -246,8 +252,83 @@ async function starts() {
 					// if (isLocation) return reply(content + '\n\nLocation')
 					// if (isDocument) return reply(content + '\n\nDocument')
 					// reply(content)
-					if (!isGroup) return console.log('...');
-					startuserverification(client, budy, from, mek, sender, palavroes, spamcheker, usersjson, text, isGroup, reply)
+					if (isGroup) {
+						startuserverification(client, budy, from, mek, sender, palavroes, spamcheker, usersjson, text, isGroup, reply)
+					} else {
+						var usermensagem = budy.slice(0).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+						var usernumero = sender
+						if (usermensagem == 'a') {
+							let texto = ''
+							let i = 0
+							while (i != usersjson.length) {
+								if (usersjson[i].numero == usernumero) {
+									texto = `Olá, ${usersjson[i].nome}. Você tem *${usersjson[i].pontos}pts*.\nSuas anotações: ${usersjson[i].motivos} \n\nSeu número: ${usersjson[i].numero.split('@')[0]}`
+								}
+								i++
+							}
+							if (texto == '') {
+								reply('Não consegui te localizar no banco de dados.')
+							} else {
+								reply(texto)
+							}
+						} else if (usermensagem == 'b') {
+							reply('Ok. Me envie apenas o nome que deseja adicionar na sua proxima mensagem.')
+						} else {
+							let messages = (await client.loadMessages(usernumero, 5)).messages
+							let terceiram = messages[2].message.conversation
+							let terceiramL = terceiram.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+							let quartam = messages[0].message.conversation
+							let quartamL = quartam.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+							let quintam = messages[4].message.conversation
+							let quintamL = quintam.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+							console.log(terceiramL);
+							console.log(quartamL);
+							console.log(quintamL);
+							if (terceiramL == 'b') {
+								reply('Você confirma que o seu nome agora será:\n' + quintam + '\n\nSim ou não')
+							} else {
+								if (quartamL == 'b' && quintamL == 'sim') {
+									let i = 0
+									while (i != usersjson.length) {
+										if (usersjson[i].numero == usernumero) {
+											person = {
+												numero: usersjson[i].numero,
+												pontos: usersjson[i].pontos,
+												foto: usersjson[i].foto,
+												nome: terceiram,
+												saiudogrupo: {
+													status: usersjson[i].saiudogrupo.status,
+													quando: usersjson[i].saiudogrupo.quando
+												},
+												othersugi: usersjson[i].othersugi,
+												motivos: usersjson[i].motivos
+											};
+											usersjson.splice(i, 1, person);
+											fs.writeFileSync('./database/json/usersjson.json', JSON.stringify(usersjson))
+
+											try {
+												var re = /&/gi;
+												var img = usersjson[i].foto.replace(re, 'guilhermestringreplace');
+												var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=${terceiram}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${encodeURI(usersjson[i].motivos)}&foto=${img}`, { method: 'post' })
+												console.log(result.code)
+												console.log(result.message)
+												return;
+											} catch (error) {
+												console.log(error);
+											}
+										}
+										i++
+									}
+									reply('Ok seu nome agora é:\n' + terceiram + '.')
+								} else if (quartamL == 'b' && quintamL == 'nao') {
+									reply('Ok. caso queira editar, envie *B* novamente ou *MENU* para voltar ao inicio.')
+								} else {
+									reply('Olá! Você pode estar vendo seus pontos digitando apenas *A* ou modificar seu nome, escrevendo *B*.')
+								}
+							}
+						}
+						return console.log('...');
+					}
 			}
 		} catch (e) {
 			console.log('Error : %s', color(e, 'red'))
