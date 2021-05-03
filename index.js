@@ -215,6 +215,7 @@ async function starts() {
 			const isLiveLocation = content.includes('liveLocationMessage')
 			const isLocation = content.includes('locationMessage')
 			const isDocument = content.includes('documentMessage')
+			const isFakenews = content.includes('forwardingScore')
 			const isQuotedMessage1 = type === 'extendedTextMessage'
 			const isQuotedVcard = type === 'extendedTextMessage' && content.includes('contactMessage')
 			if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
@@ -254,7 +255,7 @@ async function starts() {
 					// if (isDocument) return reply(content + '\n\nDocument')
 					// reply(content)
 					if (isGroup) {
-						startuserverification(client, budy, from, mek, sender, palavroes, spamcheker, usersjson, text, isGroup, reply)
+						startuserverification(client, budy, from, mek, sender, palavroes, spamcheker, usersjson, text, isGroup, isFakenews, reply)
 					} else {
 						pvdevpolice(budy, sender, usersjson, client, reply)
 					}
