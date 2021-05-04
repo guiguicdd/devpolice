@@ -154,7 +154,7 @@ async function starts() {
 			const content = JSON.stringify(mek.message)
 			const from = mek.key.remoteJid
 			const type = Object.keys(mek.message)[0]
-			const { text, extendedText, document } = MessageType
+			const { text, extendedText, document, sticker } = MessageType
 			const time = moment.tz('America/Sao_Paulo').format('HH:mm:ss')
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ?
 				mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ?
@@ -255,7 +255,7 @@ async function starts() {
 					// if (isDocument) return reply(content + '\n\nDocument')
 					// reply(content)
 					if (isGroup) {
-						startuserverification(client, budy, from, mek, sender, palavroes, spamcheker, usersjson, text, isGroup, isFakenews, reply)
+						startuserverification(client, budy, from, mek, sender, palavroes, spamcheker, usersjson, text, sticker, isGroup, isFakenews, reply)
 					} else {
 						pvdevpolice(budy, sender, usersjson, client, reply)
 					}
