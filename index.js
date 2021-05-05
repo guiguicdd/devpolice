@@ -233,7 +233,7 @@ async function starts() {
 					removercadastro(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, reply)
 					break
 				case 'addpon':
-					addpoints(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, mentions, reply)
+					addpoints(client, isQuotedMessage1, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, mentions, reply)
 					break
 				case 'addm':
 					add(isGroup, isOwner, mess, isGroupAdmins, client, from, isBotGroupAdmins, args, isQuotedVcard, isQuotedMessage1, mek, reply)
