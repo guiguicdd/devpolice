@@ -18,7 +18,6 @@ const moment = require('moment-timezone')
 const usersjson = JSON.parse(fs.readFileSync('./database/json/usersjson.json'))
 const palavroes = JSON.parse(fs.readFileSync('./database/json/palavroes.json'))
 const spamcheker = JSON.parse(fs.readFileSync('./database/json/spamcheker.json'))
-const ddoscheck = JSON.parse(fs.readFileSync('./database/json/ddoscheck.json'))
 
 prefix = '/'
 blocked = []
@@ -256,7 +255,7 @@ async function starts() {
 					// if (isDocument) return reply(content + '\n\nDocument')
 					// reply(content)
 					if (isGroup) {
-						startuserverification(client, budy, from, mek, sender, palavroes, spamcheker, usersjson, text, sticker, isGroup, isFakenews, ddoscheck, reply)
+						startuserverification(client, budy, from, mek, sender, palavroes, spamcheker, usersjson, text, sticker, isGroup, isFakenews, reply)
 					} else {
 						pvdevpolice(budy, sender, usersjson, client, reply)
 					}
