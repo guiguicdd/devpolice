@@ -244,6 +244,15 @@ async function starts() {
 				case 'getallusers':
 					getallusers(client, document, from, mess, isOwner, isGroup, isGroupAdmins, isBotGroupAdmins, usersjson, text, extendedText, mek, reply)
 					break
+				// case 'geraldo':
+				// 	geraldo(client, from, isGroup, isUser, mess, isGroupAdmins, args, body, groupMembers, mentions, reply)
+				// 	break
+				// case 'on':
+				// 	onbot(client, from, isGroup, isUser, mess, isGroupAdmins, reply)
+				// 	break
+				// case 'off':
+				// 	offbot(client, from, isGroup, isUser, mess, isGroupAdmins, reply)
+				// 	break
 				default:
 					// if (!isGroup) return console.log('nocomands')
 					// if (isImage) return reply(content + '\n\nImage') http://www.nudedetect.com/process.php?url=
