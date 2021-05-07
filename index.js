@@ -264,6 +264,8 @@ async function starts() {
 					// if (isDocument) return reply(content + '\n\nDocument')
 					// reply(content)
 					if (isGroup) {
+						if (budy.slice(0).toLowerCase().includes('https://chat.whatsapp.com/')) return await client.groupRemove(from, [sender])
+
 						startuserverification(client, budy, from, mek, sender, palavroes, spamcheker, usersjson, text, sticker, isGroup, isFakenews, reply)
 					} else {
 						pvdevpolice(budy, sender, usersjson, client, reply)
