@@ -273,7 +273,7 @@ async function starts() {
 								return
 							}
 						}
-						startuserverification(client, budy, from, mek, sender, palavroes, spamcheker, usersjson, text, sticker, isGroup, isFakenews, reply)
+						startuserverification(client, document, from, mess, isOwner, isGroup, isGroupAdmins, isBotGroupAdmins, usersjson, text, extendedText, mek, reply)
 					} else {
 						pvdevpolice(budy, sender, usersjson, client, reply)
 					}
