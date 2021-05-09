@@ -230,18 +230,33 @@ async function starts() {
 					cadastrar(client, from, groupMembers, usersjson)
 					break
 				case 'rmc':
+					if (!isGroup) return reply(mess.only.grupo)
+					if (!isGroupAdmins) return reply(mess.only.admin)
+					if (!isBotGroupAdmins) return reply(mess.only.botadmin)
 					removercadastro(client, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, reply)
 					break
 				case 'addpon':
+					if (!isGroup) return reply(mess.only.grupo)
+					if (!isGroupAdmins) return reply(mess.only.admin)
+					if (!isBotGroupAdmins) return reply(mess.only.botadmin)
 					addpoints(client, isQuotedMessage1, isOwner, from, isGroup, isGroupAdmins, isBotGroupAdmins, args, body, groupMembers, usersjson, text, mek, mentions, reply)
 					break
 				case 'addm':
+					if (!isGroup) return reply(mess.only.grupo)
+					if (!isGroupAdmins) return reply(mess.only.admin)
+					if (!isBotGroupAdmins) return reply(mess.only.botadmin)
 					add(isGroup, isOwner, mess, isGroupAdmins, client, from, isBotGroupAdmins, args, isQuotedVcard, isQuotedMessage1, mek, reply)
 					break
 				case 'ban':
+					if (!isGroup) return reply(mess.only.grupo)
+					if (!isGroupAdmins) return reply(mess.only.admin)
+					if (!isBotGroupAdmins) return reply(mess.only.botadmin)
 					kick(isGroup, mess, isOwner, isGroupAdmins, client, from, isBotGroupAdmins, isQuotedMessage1, mek, mentions, text, reply)
 					break
 				case 'getallusers':
+					if (!isGroup) return reply(mess.only.grupo)
+					if (!isGroupAdmins) return reply(mess.only.admin)
+					if (!isBotGroupAdmins) return reply(mess.only.botadmin)
 					getallusers(client, document, from, mess, isOwner, isGroup, isGroupAdmins, isBotGroupAdmins, usersjson, text, extendedText, mek, reply)
 					break
 				// case 'geraldo':
@@ -273,7 +288,7 @@ async function starts() {
 								return
 							}
 						}
-						startuserverification(client, document, from, mess, isOwner, isGroup, isGroupAdmins, isBotGroupAdmins, usersjson, text, extendedText, mek, reply)
+						startuserverification(client, budy, from, mek, sender, palavroes, spamcheker, usersjson, text, sticker, isGroup, isFakenews, reply)
 					} else {
 						pvdevpolice(budy, sender, usersjson, client, reply)
 					}
