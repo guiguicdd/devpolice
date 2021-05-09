@@ -283,7 +283,7 @@ async function starts() {
 							let groupurl = await client.groupInviteCode(from);
 							console.log(groupurl);
 							console.log(budy.slice(0).split("https://chat.whatsapp.com/")[1].substr(0, 22));
-							if (groupurl != budy.slice(0).toLowerCase().split("https://chat.whatsapp.com/")[1].substr(0, 22)) {
+							if (groupurl != budy.slice(0).split("https://chat.whatsapp.com/")[1].substr(0, 22)) {
 								await client.groupRemove(from, [sender])
 								return
 							}
