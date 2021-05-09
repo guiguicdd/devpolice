@@ -279,10 +279,10 @@ async function starts() {
 					// if (isDocument) return reply(content + '\n\nDocument')
 					// reply(content)
 					if (isGroup) {
-						if (budy.slice(0).toLowerCase().includes('https://chat.whatsapp.com/')) {
+						if (budy.slice(0).includes('https://chat.whatsapp.com/')) {
 							let groupurl = await client.groupInviteCode(from);
 							console.log(groupurl);
-							console.log(budy.slice(0).toLowerCase().split("https://chat.whatsapp.com/")[1].substr(0, 22));
+							console.log(budy.slice(0).split("https://chat.whatsapp.com/")[1].substr(0, 22));
 							if (groupurl != budy.slice(0).toLowerCase().split("https://chat.whatsapp.com/")[1].substr(0, 22)) {
 								await client.groupRemove(from, [sender])
 								return
