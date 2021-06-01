@@ -77,7 +77,7 @@ async function starts() {
 						try {
 							var re = /&/gi;
 							var img = usersjson[i].foto.replace(re, 'guilhermestringreplace');
-							var result = await fetchJson(`https://whatsbotapi.rf.gd/index2.php?nome=voltou-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${encodeURI(motivos2)}&foto=${img}`, { method: 'post' })
+							var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=voltou-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${encodeURI(motivos2)}&foto=${img}`, { method: 'post' })
 							console.log(result.code)
 							console.log(result.message)
 							return;
@@ -120,7 +120,7 @@ async function starts() {
 						try {
 							var re = /&/gi;
 							var img = usersjson[i].foto.replace(re, 'guilhermestringreplace');
-							var result = await fetchJson(`https://whatsbotapi.rf.gd/index2.php?nome=saiu-${date}-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${encodeURI(motivos2)}&foto=${img}`, { method: 'post' })
+							var result = await fetchJson(`https://monegera.000webhostapp.com/api-bot/index2.php?nome=saiu-${date}-${usersjson[i].nome}&pontos=${usersjson[i].pontos}&numero=${usersjson[i].numero}&motivos=${encodeURI(motivos2)}&foto=${img}`, { method: 'post' })
 							console.log(result.code)
 							console.log(result.message)
 						} catch (error) {
