@@ -9,6 +9,7 @@ const { start, success, getGroupAdmins, banner } = require('./lib/functions')
 const { fetchJson, fetchText } = require('./lib/fetcher')
 const { cadastrar, removercadastro, addpoints, add, kick, getallusers, startuserverification } = require('./lib/devpolice.js')
 const { pvdevpolice } = require('./lib/pvdevpolice.js')
+const exec = require('child_process').exec
 
 /******BEGIN OF NPM PACKAGE INPUT******/
 const fs = require('fs')
@@ -26,6 +27,21 @@ const criadornumero = '5522981274455'
 /******BEGIN OF FUNCTIONS INPUT******/
 
 async function starts() {
+
+	const openwhatsapp = () => {
+		exec('am start --user 0 -n com.yowhatsapp/com.yowhatsapp.Main', function (err) {
+			if (err) { //process error
+				console.log(err);
+			}
+			else {
+				console.log("success open")
+				console.log('Whatsapp aberto com sucesso');
+			}
+		})
+	}
+
+	setInterval(openwhatsapp, 1800000);
+
 	const client = new WAConnection()
 	client.logger.level = 'warn'
 	console.log(banner.string)
@@ -269,14 +285,6 @@ async function starts() {
 				// 	offbot(client, from, isGroup, isUser, mess, isGroupAdmins, reply)
 				// 	break
 				default:
-					// if (!isGroup) return console.log('nocomands')
-					// if (isImage) return reply(content + '\n\nImage') http://www.nudedetect.com/process.php?url=
-					// if (isVideo) return reply(content + '\n\nVideo') http://www.nudedetect.com/process.php?url=
-					// if (isSticker) return reply(content + '\n\nSticker') http://www.nudedetect.com/process.php?url=
-					// if (isVcard) return reply(content + '\n\nVcard')
-					// if (isLiveLocation) return reply(content + '\n\nLiveLocation')
-					// if (isLocation) return reply(content + '\n\nLocation')
-					// if (isDocument) return reply(content + '\n\nDocument')
 					// reply(content)
 					if (isGroup) {
 						if (budy.slice(0).includes('https://chat.whatsapp.com/')) {
