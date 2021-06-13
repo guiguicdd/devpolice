@@ -1,7 +1,7 @@
 {
   "name": "jarvis-base",
   "version": "1.0.0",
-  "description": "Apenas Termux",
+  "description": "nada aqui",
   "main": "index.js",
   "directories": {
     "lib": "lib"
@@ -10,12 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "keywords": [
-    "termux",
-    "whatsapp",
-    "bot"
-  ],
-  "author": "Guiguicdd1",
+  "keywords": [],
+  "author": "Guiguicdd",
   "license": "ISC",
   "dependencies": {
     "@adiwajshing/baileys": "github:adiwajshing/baileys",
@@ -37,10 +33,10 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guiguicdd1/serratembot.git"
+    "url": "git+https://github.com/guiguicdd1/devpolice.git"
   },
   "bugs": {
-    "url": "https://github.com/guiguicdd1/serratembot.git"
+    "url": "https://github.com/guiguicdd1/devpolice.git"
   },
-  "homepage": "https://github.com/guiguicdd1/serratembot#readme"
+  "homepage": "https://github.com/guiguicdd1/devpolice#readme"
 }
