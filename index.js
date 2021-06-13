@@ -4,7 +4,7 @@ const {
 } = require('@adiwajshing/baileys')
 
 /******BEGIN OF FILE INPUT******/
-const { color, bgcolor } = require('./lib/color')
+const { color } = require('./lib/color')
 const { start, success, getGroupAdmins, banner } = require('./lib/functions')
 const { fetchJson, fetchText } = require('./lib/fetcher')
 const { cadastrar, removercadastro, addpoints, add, kick, getallusers, startuserverification } = require('./lib/devpolice.js')
