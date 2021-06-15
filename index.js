@@ -40,9 +40,10 @@ async function starts() {
 		})
 	}
 
-	setInterval(openwhatsapp, 1800000);
+	setInterval(() => { openwhatsapp() }, 1800000);
 
 	const client = new WAConnection()
+	
 	client.logger.level = 'warn'
 	console.log(banner.string)
 	client.on('qr', () => {
